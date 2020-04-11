@@ -7,6 +7,14 @@ nav {
 	padding: 20px 0px 20px 0px;
 }
 
+.navbar-expand-lg .navbar-collapse {
+	display: -ms-flexbox !important;
+	display: flex !important;
+	-ms-flex-preferred-size: auto;
+	flex-basis: auto;
+	justify-content: flex-end;
+}
+
 .container {
 	display: flex;
 	flex-direction: column;
