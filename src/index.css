@@ -1,0 +1,24 @@
+#app {
+	max-width: 850px;
+	margin: 0 auto;
+}
+
+nav {
+	padding: 20px 0px 20px 0px;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-items: center;
+}
+
+.delete-item {
+	cursor: pointer;
+	color: tomato;
+	opacity: 0;
+	transition: 0.2s ease-in-out;
+}
+.item:hover .delete-item {
+	opacity: 1;
+}
