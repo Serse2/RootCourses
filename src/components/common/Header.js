@@ -17,6 +17,9 @@ const Header = () => {
 					<NavLink to='/courses' activeStyle={activeStyle} className='nav-link'>
 						Courses
 					</NavLink>
+					<NavLink to='/marvel' activeStyle={activeStyle} className='nav-link'>
+						Marvel API
+					</NavLink>
 					<NavLink to='/about' activeStyle={activeStyle} className='nav-link'>
 						About
 					</NavLink>

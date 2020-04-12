@@ -1,2 +1,3 @@
 export const ADD_COURSE = "ADD_COURSE";
 export const DELETE_COURSE = "DELETE_COURSE";
+export const LOAD_COMICS_SUCCESS = "LOAD_COMICS_SUCCESS";

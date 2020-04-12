@@ -1,6 +1,6 @@
 #app {
-	max-width: 850px;
 	margin: 0 auto;
+	height: 100vh;
 }
 
 nav {
@@ -8,10 +8,6 @@ nav {
 }
 
 .navbar-expand-lg .navbar-collapse {
-	display: -ms-flexbox !important;
-	display: flex !important;
-	-ms-flex-preferred-size: auto;
-	flex-basis: auto;
 	justify-content: flex-end;
 }
 
@@ -29,4 +25,23 @@ nav {
 }
 .item:hover .delete-item {
 	opacity: 1;
+}
+
+.bg-marvel {
+	background-color: darkred;
+	color: white;
+}
+
+.grid {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.card {
+	width: 18rem;
+}
+
+footer {
+	background-color: currentColor;
 }
