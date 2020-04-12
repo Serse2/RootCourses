@@ -4,6 +4,7 @@ import * as courseAction from "../../redux/actions/courseActions";
 import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { Form } from "react-bootstrap";
+import { getComics } from "../../api/comicsApi";
 
 class CoursesPage extends Component {
 	state = {
@@ -36,6 +37,11 @@ class CoursesPage extends Component {
 
 	render() {
 		let { courses } = this.props;
+
+		getComics().then((data) => {
+			console.log(data.data.results);
+		});
+
 		return (
 			<div className='container'>
 				<Form onSubmit={this.handleSubmit}>
