@@ -8,6 +8,7 @@ import { Form } from "react-bootstrap";
 class CoursesPage extends Component {
 	state = {
 		course: {
+			isError: false,
 			title: "",
 			duration: "5 anni",
 		},
@@ -31,25 +32,42 @@ class CoursesPage extends Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		this.props.addCourse(this.state.course);
+
+		if (
+			this.state.course.title !== "" &&
+			this.state.course.title !== "inserisci un corso"
+		) {
+			this.props.addCourse(this.state.course);
+			this.setState({
+				course: { ...this.state.course, isError: false },
+			});
+		} else {
+			this.setState({
+				course: {
+					...this.state.course,
+					isError: true,
+					title: "inserisci un corso",
+				},
+			});
+		}
 	};
 
 	render() {
 		let { courses } = this.props;
+		let { isError } = this.state.course;
 		return (
 			<div className='container'>
+				<h2>Courses</h2>
+				<h3>Add Course</h3>
 				<Form onSubmit={this.handleSubmit}>
-					<Form.Group controlId='formBasicEmail'>
-						<h2>Courses</h2>
-						<h3>Add Course</h3>
-						<Form.Control
-							type='text'
-							name='title'
-							defaultValue={this.state.course.title}
-							onChange={this.handleChange}
-						/>
-					</Form.Group>
-					<button className='btn btn-info'>Save the course</button>
+					<Form.Control
+						className={isError ? "error" : ""}
+						type='text'
+						name='title'
+						value={this.state.course.title}
+						onChange={this.handleChange}
+					/>
+					<button className='btn btn-info mt-3'>Save the course</button>
 				</Form>
 				<h2>This is your showcase:</h2>
 				{courses.map((course, index) => {

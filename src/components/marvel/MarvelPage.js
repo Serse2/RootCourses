@@ -6,9 +6,13 @@ import * as marvelActions from "../../redux/actions/marvelActions";
 
 class MarvelPage extends Component {
 	componentDidMount() {
-		this.props.loadComics().catch((err) => {
-			alert("something was wrong " + err);
-		});
+		const { comics } = this.props;
+		// controllo se sono già stati caricati i dati, se lo sono già non è il caso di effettuare una nuova chiamatata.
+		if (comics.length === 0) {
+			this.props.loadComics().catch((err) => {
+				alert("something was wrong " + err);
+			});
+		}
 	}
 
 	render() {
@@ -29,6 +33,7 @@ class MarvelPage extends Component {
 								<img src={img} className='card-img-top' alt={comic.title} />
 								<div className='card-body'>
 									<h5 className='card-title'>{comic.title}</h5>
+									<p className='card-text'>{comic.description}</p>
 								</div>
 							</div>
 						);
