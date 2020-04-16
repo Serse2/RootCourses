@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as marvelActions from "../../redux/actions/marvelActions";
+import { loadComics } from "../../redux/actions/marvelActions";
 
 class MarvelPage extends Component {
 	componentDidMount() {
@@ -55,9 +54,9 @@ const mapStateToProps = (state) => {
 	};
 };
 
-// tutte le azioni che andrò a creare saranno automaticamente disponibili in this.props come funzioni
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators(marvelActions, dispatch);
-}
+// definizione di mapDispatchToProps mediante oggetto
+const mapDispatchToProps = {
+	loadComics,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MarvelPage);

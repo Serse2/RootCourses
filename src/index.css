@@ -11,6 +11,16 @@ nav {
 	justify-content: flex-end;
 }
 
+.navbar-dark a {
+	color: rgba(255, 255, 255, 0.5);
+}
+.navbar-dark a:hover {
+	text-decoration: none;
+}
+.navbar-dark a.logo {
+	font-size: 28px;
+}
+
 .container {
 	display: flex;
 	flex-direction: column;

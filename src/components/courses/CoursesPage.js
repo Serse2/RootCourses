@@ -105,6 +105,7 @@ const mapStateToProps = (state) => {
 };
 
 // tutte le azioni che andrò a creare saranno automaticamente disponibili in this.props come funzioni
+// definizione di mapDispatchToProps mediante bindActionCreators
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators(courseAction, dispatch);
 }
