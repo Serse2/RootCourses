@@ -3,19 +3,29 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useParams } from "react-router";
 
+import { Jumbotron, Button, Badge } from "react-bootstrap";
+
 const SingleCourse = ({ courses }) => {
 	let { slug } = useParams();
 	return (
 		<div>
-			Now showing post {slug}
-			{courses.map((course) => {
+			{courses.map((course, index) => {
 				if (course.title === slug) {
+					const { title, author, price, description } = course;
 					return (
-						<div>
-							<h1>{course.title}</h1>
-							<h2>{course.author}</h2>
-							<h3>{course.price}</h3>
-						</div>
+						<Jumbotron key={index}>
+							<h1>{title}</h1>
+							<div>Description:</div>
+							<p>{description}</p>
+							<h2>
+								{author}
+								<Badge variant='secondary'>Author</Badge>
+							</h2>
+							<div>Total price: {price}€</div>
+							<p>
+								<Button variant='primary'>Do it now!</Button>
+							</p>
+						</Jumbotron>
 					);
 				}
 			})}
@@ -25,7 +35,6 @@ const SingleCourse = ({ courses }) => {
 
 SingleCourse.propTypes = {
 	courses: PropTypes.array.isRequired,
-	loadCourses: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
