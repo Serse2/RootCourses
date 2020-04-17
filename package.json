@@ -2,7 +2,7 @@
 	"name": "ps-redux",
 	"description": "React and Redux Pluralsight course by Cory House",
 	"scripts": {
-		"start": "webpack-dev-server --config webpack.config.dev.js --port 3000"
+		"start": "webpack-dev-server --config webpack.config.dev.js --port 4000"
 	},
 	"dependencies": {
 		"bootstrap": "^4.3.1",
@@ -15,7 +15,7 @@
 		"react-bootstrap": "^1.0.0",
 		"react-dom": "16.8.4",
 		"react-redux": "6.0.1",
-		"react-router-dom": "5.0.0",
+		"react-router-dom": "^5.1.2",
 		"react-toastify": "4.5.2",
 		"redux": "4.0.1",
 		"redux-thunk": "2.3.0",

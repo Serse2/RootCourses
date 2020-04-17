@@ -8,8 +8,9 @@ import Footer from "./common/Footer";
 import About from "./about/AboutPage";
 import Home from "./home/HomePage";
 import PageNotFound from "./PageNotFound";
-import CoursesPage from "./courses/CoursesPage";
+import CoursesList from "./courses/CoursesList";
 import MarvelPage from "./marvel/MarvelPage";
+import SingleCourse from "./courses/SingleCourse";
 
 const App = () => {
 	return (
@@ -19,7 +20,8 @@ const App = () => {
 				<Switch>
 					<Route exact path='/' component={Home} />
 					<Route path='/about' component={About} />
-					<Route path='/courses' component={CoursesPage} />
+					<Route path='/courses/:slug' component={SingleCourse} />
+					<Route path='/courses' component={CoursesList} />
 					<Route path='/marvel' component={MarvelPage} />
 					<Route component={PageNotFound} />
 				</Switch>
