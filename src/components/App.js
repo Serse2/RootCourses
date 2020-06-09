@@ -11,6 +11,7 @@ import PageNotFound from "./PageNotFound";
 import CoursesList from "./courses/CoursesList";
 import MarvelPage from "./marvel/MarvelPage";
 import SingleCourse from "./courses/SingleCourse";
+import CoursesPage from "./courses/CoursesPage";
 
 const App = () => {
 	return (
@@ -20,6 +21,7 @@ const App = () => {
 				<Switch>
 					<Route exact path='/' component={Home} />
 					<Route path='/about' component={About} />
+					<Route path='/add-course' component={CoursesPage} />
 					<Route path='/courses/:slug' component={SingleCourse} />
 					<Route path='/courses' component={CoursesList} />
 					<Route path='/marvel' component={MarvelPage} />

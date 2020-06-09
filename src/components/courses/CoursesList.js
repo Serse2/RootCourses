@@ -50,6 +50,8 @@ function CoursesList({ courses, loadCourses }) {
 					})}
 				</tbody>
 			</Table>
+			<h2 className='text-muted soft-text'>Add your Course</h2>
+			<Link to='/add-course'>Start now &#8594;</Link>
 		</>
 	);
 }

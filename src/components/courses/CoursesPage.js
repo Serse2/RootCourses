@@ -8,9 +8,12 @@ import { Form } from "react-bootstrap";
 class CoursesPage extends Component {
 	state = {
 		course: {
-			isError: false,
+			id: 0,
 			title: "",
-			duration: "5 anni",
+			author: "",
+			duration: 0,
+			price: 0,
+			description: "",
 		},
 	};
 
@@ -24,69 +27,73 @@ class CoursesPage extends Component {
 		});
 	};
 
-	handleDelete = (e) => {
-		const { index } = e.target.dataset;
-		this.props.deleteCourse(index);
-		console.log(index);
-	};
-
 	handleSubmit = (e) => {
 		e.preventDefault();
+		console.log(history);
 
-		if (
-			this.state.course.title !== "" &&
-			this.state.course.title !== "inserisci un corso"
-		) {
-			this.props.addCourse(this.state.course);
-			this.setState({
-				course: { ...this.state.course, isError: false },
-			});
-		} else {
-			this.setState({
-				course: {
-					...this.state.course,
-					isError: true,
-					title: "inserisci un corso",
-				},
-			});
-		}
+		this.props.history.push("/courses");
 	};
 
 	render() {
 		let { courses } = this.props;
-		let { isError } = this.state.course;
+		let { title, author, duration, price, description } = this.state.course;
 		return (
 			<div className='container'>
 				<h2>Courses</h2>
-				<h3>Add Course</h3>
+				<h3>Add new course</h3>
 				<Form onSubmit={this.handleSubmit}>
-					<Form.Control
-						className={isError ? "error" : ""}
-						type='text'
-						name='title'
-						value={this.state.course.title}
-						onChange={this.handleChange}
-					/>
+					<Form.Group>
+						<Form.Label>Id:</Form.Label>
+						<Form.Control
+							type='number'
+							name='id'
+							value={courses.length + 1}
+							onChange={this.handleChange}
+						/>
+
+						<Form.Label>Title:</Form.Label>
+						<Form.Control
+							type='text'
+							name='title'
+							value={title}
+							onChange={this.handleChange}
+						/>
+
+						<Form.Label>Author:</Form.Label>
+						<Form.Control
+							type='text'
+							name='author'
+							value={author}
+							onChange={this.handleChange}
+						/>
+
+						<Form.Label>Duration:</Form.Label>
+						<Form.Control
+							type='number'
+							name='duration'
+							value={duration}
+							onChange={this.handleChange}
+						/>
+
+						<Form.Label>Price</Form.Label>
+						<Form.Control
+							type='number'
+							name='price'
+							value={price}
+							onChange={this.handleChange}
+						/>
+
+						<Form.Label>Description:</Form.Label>
+						<Form.Control
+							as='textarea'
+							name='description'
+							value={description}
+							onChange={this.handleChange}
+						/>
+					</Form.Group>
+
 					<button className='btn btn-info mt-3'>Save the course</button>
 				</Form>
-				<h2>This is your showcase:</h2>
-				{courses.map((course, index) => {
-					return (
-						<div key={index} className='item'>
-							<span>{index} </span>
-							<span>{course.title}</span>
-							<span> | </span>
-							<span>{course.duration}</span>
-							<span> | </span>
-							<span
-								className='delete-item'
-								data-index={index}
-								onClick={this.handleDelete}>
-								delete
-							</span>
-						</div>
-					);
-				})}
 			</div>
 		);
 	}
@@ -96,6 +103,8 @@ CoursesPage.propTypes = {
 	courses: PropTypes.array,
 	addCourse: PropTypes.func,
 	deleteCourse: PropTypes.func,
+	history: PropTypes.object,
+	push: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
