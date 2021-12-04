@@ -1,122 +1,100 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import * as courseAction from "../../redux/actions/courseActions";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { postCourseReducer } from "../../redux/actions/courseActions";
 import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
 import { Form } from "react-bootstrap";
+import Loader from "../common/Loader";
 
-class CoursesPage extends Component {
-	state = {
-		course: {
-			id: 0,
-			title: "",
-			author: "",
-			duration: 0,
-			price: 0,
-			description: "",
-		},
-	};
+function CoursesPage() {
+  let history = useHistory();
+  const { loading } = useSelector((state) => state.courses);
+  const dispatch = useDispatch();
+  const [course, setCourse] = useState({
+    id: 0,
+    title: "",
+    author: "",
+    duration: 0,
+    price: 0,
+    description: "",
+  });
 
-	handleChange = (e) => {
-		const { name, value } = e.target;
-		// take a copy of state and modify only the arguments we want.
-		const course = { ...this.state.course, [name]: value };
-		// set the state with the new object created and assing it at the current state.
-		this.setState({
-			course: course,
-		});
-	};
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    // take a copy of state and modify only the arguments we want.
+    const newCourse = { ...course, [name]: value };
+    // set the state with the new object created and assing it at the current state.
+    setCourse(newCourse);
+  };
 
-	handleSubmit = (e) => {
-		e.preventDefault();
-		console.log(history);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(postCourseReducer(course));
+    history.push("/courses");
+  };
 
-		this.props.history.push("/courses");
-	};
+  let { title, author, duration, price, description } = course;
+  return (
+    <>
+      {loading && <Loader />}
+      <div className="container">
+        <h2>Courses</h2>
+        <h3>Add new course</h3>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group>
+            <Form.Label>Title:</Form.Label>
+            <Form.Control type="text" name="title" value={title} onChange={handleChange} required />
 
-	render() {
-		let { courses } = this.props;
-		let { title, author, duration, price, description } = this.state.course;
-		return (
-			<div className='container'>
-				<h2>Courses</h2>
-				<h3>Add new course</h3>
-				<Form onSubmit={this.handleSubmit}>
-					<Form.Group>
-						<Form.Label>Id:</Form.Label>
-						<Form.Control
-							type='number'
-							name='id'
-							value={courses.length + 1}
-							onChange={this.handleChange}
-						/>
+            <Form.Label>Author:</Form.Label>
+            <Form.Control
+              type="text"
+              name="author"
+              value={author}
+              onChange={handleChange}
+              required
+            />
 
-						<Form.Label>Title:</Form.Label>
-						<Form.Control
-							type='text'
-							name='title'
-							value={title}
-							onChange={this.handleChange}
-						/>
+            <Form.Label>Duration:</Form.Label>
+            <Form.Control
+              type="number"
+              name="duration"
+              value={duration}
+              onChange={handleChange}
+              required
+            />
 
-						<Form.Label>Author:</Form.Label>
-						<Form.Control
-							type='text'
-							name='author'
-							value={author}
-							onChange={this.handleChange}
-						/>
+            <Form.Label>Price</Form.Label>
+            <Form.Control
+              type="number"
+              name="price"
+              value={price}
+              onChange={handleChange}
+              required
+            />
 
-						<Form.Label>Duration:</Form.Label>
-						<Form.Control
-							type='number'
-							name='duration'
-							value={duration}
-							onChange={this.handleChange}
-						/>
+            <Form.Label>Description:</Form.Label>
+            <Form.Control
+              as="textarea"
+              name="description"
+              value={description}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
 
-						<Form.Label>Price</Form.Label>
-						<Form.Control
-							type='number'
-							name='price'
-							value={price}
-							onChange={this.handleChange}
-						/>
-
-						<Form.Label>Description:</Form.Label>
-						<Form.Control
-							as='textarea'
-							name='description'
-							value={description}
-							onChange={this.handleChange}
-						/>
-					</Form.Group>
-
-					<button className='btn btn-info mt-3'>Save the course</button>
-				</Form>
-			</div>
-		);
-	}
+          <button className="btn btn-info mt-3">Save the course</button>
+        </Form>
+      </div>
+    </>
+  );
 }
 
 CoursesPage.propTypes = {
-	courses: PropTypes.array,
-	addCourse: PropTypes.func,
-	deleteCourse: PropTypes.func,
-	history: PropTypes.object,
-	push: PropTypes.func,
+  courses: PropTypes.array,
+  addCourse: PropTypes.func,
+  deleteCourse: PropTypes.func,
+  history: PropTypes.object,
+  push: PropTypes.func,
 };
 
-const mapStateToProps = (state) => {
-	return {
-		courses: state.courses,
-	};
-};
-
-// tutte le azioni che andrò a creare saranno automaticamente disponibili in this.props come funzioni
-// definizione di mapDispatchToProps mediante bindActionCreators
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators(courseAction, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
+export default CoursesPage;
